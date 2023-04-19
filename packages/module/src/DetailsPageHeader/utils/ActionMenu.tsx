@@ -17,7 +17,7 @@ export type ActionCTA =
   | { callback: (event: React.MouseEvent<any> | React.KeyboardEvent | MouseEvent) => void }
   | { href: string; external?: boolean };
 
-export type Action = {
+export interface Action {
   /** A unique identifier for this action. */
   id: string;
   /** The label to display in the UI. */
@@ -34,7 +34,7 @@ export type Action = {
   icon?: React.ReactNode;
 };
 
-export type GroupedActions = {
+export interface GroupedActions {
   /** A unique identifier for this group. */
   groupId: string;
   /** Optional label to display as group heading */
@@ -48,7 +48,7 @@ export enum ActionMenuVariant {
   DROPDOWN = 'default',
 }
 
-export type ActionMenuOptions = {
+export interface ActionMenuOptions {
   /** Optional flag to indicate whether action menu should be disabled */
   isDisabled?: boolean;
   /** Optional variant for action menu: DROPDOWN vs KEBAB (defaults to dropdown) */
@@ -76,10 +76,10 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({
   position = DropdownPosition.right,
   displayLabelBeforeIcon,
 }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [isGrouped, setIsGrouped] = React.useState(false);
+  const [ isOpen, setIsOpen ] = React.useState(false);
+  const [ isGrouped, setIsGrouped ] = React.useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [dropdownActionItems, setDropdownActionItems] = React.useState<any[]>([]);
+  const [ dropdownActionItems, setDropdownActionItems ] = React.useState<any[]>([]);
 
   React.useEffect(() => {
     if (!isEmpty(groupedActions)) {
@@ -112,8 +112,8 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({
         'external' in action.cta &&
         action.cta.href &&
         action.cta.external ? (
-          <ExternalLinkAltIcon />
-        ) : null;
+            <ExternalLinkAltIcon />
+          ) : null;
       const icon = action.icon ?? externalIcon;
       const href = 'href' in action.cta ? action.cta.href : undefined;
       const onClick =
@@ -133,25 +133,20 @@ export const ActionMenu: React.FC<ActionMenuProps> = ({
         </DropdownItem>
       );
     },
-    [displayLabelBeforeIcon],
+    [ displayLabelBeforeIcon ],
   );
 
   React.useEffect(() => {
     let ddActionItems: JSX.Element[] = [];
     if (!isEmpty(actions)) {
-      ddActionItems = actions.map((action: Action) => {
-        return dropdownActionItem(action as Action);
-      });
+      ddActionItems = actions.map((action: Action) => dropdownActionItem(action as Action));
     }
     if (!isEmpty(groupedActions)) {
-      ddActionItems = groupedActions.map((action: GroupedActions) => {
-        // Grouped Actions
-        return (
-          <DropdownGroup label={action.groupLabel} key={action.groupId}>
-            {action.groupActions.map((groupAction: Action) => dropdownActionItem(groupAction))}
-          </DropdownGroup>
-        );
-      });
+      ddActionItems = groupedActions.map((action: GroupedActions) => (
+        <DropdownGroup label={action.groupLabel} key={action.groupId}>
+          {action.groupActions.map((groupAction: Action) => dropdownActionItem(groupAction))}
+        </DropdownGroup>
+      ))
     }
     setDropdownActionItems(ddActionItems);
     // eslint-disable-next-line react-hooks/exhaustive-deps

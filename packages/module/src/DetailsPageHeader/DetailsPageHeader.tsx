@@ -14,7 +14,7 @@ import type { BreadcrumbProp, ActionButtonProp, ActionMenuProps } from './utils'
 import { Breadcrumbs, ActionButtons, ActionMenu } from './utils';
 import '@patternfly/react-styles/css/utilities/Spacing/spacing.css';
 
-export type PageHeading = {
+export interface PageHeading {
   /** Optional title for page heading */
   title?: string;
   /** Optional label for page heading */
@@ -31,7 +31,7 @@ export type PageHeading = {
   iconAfterTitle?: React.ReactNode;
 };
 
-export type DetailsPageHeaderProps = {
+export interface DetailsPageHeaderProps {
   breadcrumbs: BreadcrumbProp[];
   actionButtons?: ActionButtonProp[];
   pageHeading?: PageHeading;

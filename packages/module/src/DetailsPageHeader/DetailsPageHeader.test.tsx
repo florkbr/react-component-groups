@@ -44,7 +44,7 @@ const mockProps: DetailsPageHeaderProps = {
 };
 
 const detailsPageHeaderJSX = (args: DetailsPageHeaderProps) => (
-  <MemoryRouter initialEntries={['/workspaces/demo-workspace']}>
+  <MemoryRouter initialEntries={[ '/workspaces/demo-workspace' ]}>
     <Routes>
       <Route element={<DetailsPageHeader {...args} />} path="/workspaces/demo-workspace" />
       <Route element={<div>Workspaces List Page</div>} path="/workspaces" />

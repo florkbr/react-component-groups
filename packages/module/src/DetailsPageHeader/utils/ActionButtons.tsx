@@ -2,7 +2,7 @@ import { Button, Flex, FlexItem, Tooltip } from '@patternfly/react-core';
 import { isEmpty, map } from 'lodash';
 import React from 'react';
 
-export type ActionButtonProp = {
+export interface ActionButtonProp {
   id?: string;
   label?: string;
   callback: (event: React.MouseEvent) => void;
@@ -11,7 +11,7 @@ export type ActionButtonProp = {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'link';
 };
 
-export type ActionButtonsProps = {
+export interface ActionButtonsProps {
   actionButtons: ActionButtonProp[];
 };
 

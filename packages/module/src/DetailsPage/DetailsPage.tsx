@@ -1,24 +1,22 @@
 import React from 'react';
-import type { DetailsPageHeaderProps } from '../details-page-header';
-import { DetailsPageHeader } from '../details-page-header';
-import type { HorizontalNavProps } from '../horizontal-nav';
-import { withRouter, HorizontalNav } from '../horizontal-nav';
+import type { DetailsPageHeaderProps } from '../DetailsPageHeader';
+import { DetailsPageHeader } from '../DetailsPageHeader';
+import type { HorizontalNavProps } from '../HorizontalNav';
+import { withRouter, HorizontalNav } from '../HorizontalNav';
 
 export type DetailsPageProps = HorizontalNavProps & DetailsPageHeaderProps;
 
 export const DetailsPage = withRouter<DetailsPageProps>(
-  ({ ariaLabel, tabs, breadcrumbs, actionButtons, actionMenu, pageHeading, obj }) => {
-    return (
-      <>
-        <DetailsPageHeader
-          breadcrumbs={breadcrumbs}
-          actionButtons={actionButtons}
-          actionMenu={actionMenu}
-          pageHeading={pageHeading}
-          obj={obj}
-        />
-        <HorizontalNav ariaLabel={ariaLabel} tabs={tabs} />
-      </>
-    );
-  },
+  ({ ariaLabel, tabs, breadcrumbs, actionButtons, actionMenu, pageHeading, obj }) => (
+    <>
+      <DetailsPageHeader
+        breadcrumbs={breadcrumbs}
+        actionButtons={actionButtons}
+        actionMenu={actionMenu}
+        pageHeading={pageHeading}
+        obj={obj}
+      />
+      <HorizontalNav ariaLabel={ariaLabel} tabs={tabs} />
+    </>
+  ),
 );

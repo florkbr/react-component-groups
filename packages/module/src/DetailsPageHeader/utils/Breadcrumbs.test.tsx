@@ -13,7 +13,7 @@ const mockProps: BreadcrumbsProps = {
 };
 
 const breadcrumbsJSX = (args: BreadcrumbsProps) => (
-  <MemoryRouter initialEntries={['/workspaces/demo-workspace']}>
+  <MemoryRouter initialEntries={[ '/workspaces/demo-workspace' ]}>
     <Routes>
       <Route element={<Breadcrumbs {...args} />} path="/workspaces/demo-workspace" />
       <Route element={<div>Workspaces List Page</div>} path="/workspaces" />

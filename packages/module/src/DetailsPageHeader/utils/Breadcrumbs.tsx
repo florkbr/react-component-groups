@@ -3,25 +3,23 @@ import { Breadcrumb, BreadcrumbItem } from '@patternfly/react-core';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export type BreadcrumbProp = { name: string; path: string; uuid?: string; id?: string };
+export interface BreadcrumbProp { name: string; path: string; uuid?: string; id?: string };
 
-export type BreadcrumbsProps = {
+export interface BreadcrumbsProps {
   breadcrumbs: BreadcrumbProp[];
 };
 
 export const Breadcrumbs: React.SFC<BreadcrumbsProps> = ({ breadcrumbs }) => {
-  const [crumbs, setCrumbs] = React.useState<BreadcrumbProp[]>([]);
+  const [ crumbs, setCrumbs ] = React.useState<BreadcrumbProp[]>([]);
 
-  const addUUID = (allData: BreadcrumbProp[]) => {
-    return allData.map((item: BreadcrumbProp) => ({
-      ...item,
-      uuid: item.uuid || item.id || uuidv4(),
-    }));
-  };
+  const addUUID = (allData: BreadcrumbProp[]) => allData.map((item: BreadcrumbProp) => ({
+    ...item,
+    uuid: item.uuid || item.id || uuidv4(),
+  }));
 
   React.useEffect(() => {
     setCrumbs(addUUID(breadcrumbs));
-  }, [breadcrumbs]);
+  }, [ breadcrumbs ]);
 
   return (
     <Breadcrumb>

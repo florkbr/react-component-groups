@@ -3,7 +3,7 @@ import React from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import '@patternfly/react-styles/css/utilities/Spacing/spacing.css';
 
-type Tab = {
+interface Tab {
   /** Key for individual tab */
   key: string | number;
   /** Title for individual tab */
@@ -14,7 +14,7 @@ type Tab = {
   ariaLabel: string;
 };
 
-export type WithRouterProps = {
+export interface WithRouterProps {
   /** URL parameters */
   params?: Record<string, string>;
   /** Navigate function */
@@ -23,12 +23,12 @@ export type WithRouterProps = {
   location?: ReturnType<typeof useLocation>;
 };
 
-type HorizontalNavProps = {
+interface HorizontalNavProps extends WithRouterProps {
   /** aria-label for all tabs */
   ariaLabel?: string;
   /** Properties for tabs */
   tabs: Tab[];
-} & WithRouterProps;
+};
 
 const HorizontalNavTabs: React.FC<HorizontalNavProps> = ({
   ariaLabel,
@@ -44,7 +44,7 @@ const HorizontalNavTabs: React.FC<HorizontalNavProps> = ({
     activeTabFromUrlParam && tabs?.some((tab) => tab.key === activeTabFromUrlParam);
   const activeTab = isValidTabFromUrl ? activeTabFromUrlParam : defaultActiveTab;
 
-  const [activeTabKey, setActiveTabKey] = React.useState<string | number>(activeTab);
+  const [ activeTabKey, setActiveTabKey ] = React.useState<string | number>(activeTab);
 
   return (
     <Tabs
@@ -66,31 +66,26 @@ const HorizontalNavTabs: React.FC<HorizontalNavProps> = ({
       aria-label={ariaLabel}
       role="region"
     >
-      {tabs.map((tab: Tab) => {
-        return (
-          <Tab
-            key={tab.key}
-            eventKey={tab.key}
-            title={<TabTitleText>{tab.title}</TabTitleText>}
-            aria-label={tab.ariaLabel}
-          >
-            <div className="pf-u-m-md">{tab.content}</div>
-          </Tab>
-        );
-      })}
+      {tabs.map((tab: Tab) => (
+        <Tab
+          key={tab.key}
+          eventKey={tab.key}
+          title={<TabTitleText>{tab.title}</TabTitleText>}
+          aria-label={tab.ariaLabel}
+        >
+          <div className="pf-u-m-md">{tab.content}</div>
+        </Tab>
+      ))}
     </Tabs>
   );
 };
 
-const withRouter = <T extends WithRouterProps>(Component: React.ComponentType<T>) => {
-  return (props: Omit<T, keyof WithRouterProps>) => {
-    const params = useParams();
-    const navigate = useNavigate();
-    const location = useLocation();
+const withRouter = <T extends WithRouterProps>(Component: React.ComponentType<T>) => (props: Omit<T, keyof WithRouterProps>) => {
+  const params = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    return <Component {...(props as T)} params={params} navigate={navigate} location={location} />;
-  };
+  return <Component {...(props as T)} params={params} navigate={navigate} location={location} />;
 };
 
 const HorizontalNav = withRouter(HorizontalNavTabs as React.ComponentType<HorizontalNavProps>);
