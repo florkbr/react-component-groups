@@ -9,7 +9,7 @@ export interface BreadcrumbsProps {
   breadcrumbs: BreadcrumbProp[];
 };
 
-export const Breadcrumbs: React.SFC<BreadcrumbsProps> = ({ breadcrumbs }) => {
+export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbs }) => {
   const [ crumbs, setCrumbs ] = React.useState<BreadcrumbProp[]>([]);
 
   const addUUID = (allData: BreadcrumbProp[]) => allData.map((item: BreadcrumbProp) => ({

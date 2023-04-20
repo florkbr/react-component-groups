@@ -1,14 +1,13 @@
 import { Button, Flex, FlexItem, Tooltip } from '@patternfly/react-core';
-import { isEmpty, map } from 'lodash';
 import React from 'react';
 
 export interface ActionButtonProp {
-  id?: string;
-  label?: string;
+  label: string;
   callback: (event: React.MouseEvent) => void;
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'link';
+  id?: string;
   isDisabled?: boolean;
   tooltip?: string;
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'link';
 };
 
 export interface ActionButtonsProps {
@@ -16,12 +15,12 @@ export interface ActionButtonsProps {
 };
 
 const ActionButton: React.FC<ActionButtonProp> = ({
-  id,
-  children,
+  label,
   callback,
+  variant = 'primary',
+  id,
   isDisabled,
   tooltip,
-  variant = 'primary',
 }) => {
   const tooltipRef = React.useRef();
   return (
@@ -33,32 +32,27 @@ const ActionButton: React.FC<ActionButtonProp> = ({
         aria-describedby={id}
         innerRef={tooltipRef}
       >
-        {children}
+        {label}
       </Button>
       {tooltip ? <Tooltip id={id} content={tooltip} reference={tooltipRef} /> : null}
     </>
   );
 };
 
-export const ActionButtons: React.SFC<ActionButtonsProps> = ({ actionButtons }) => (
+export const ActionButtons: React.FC<ActionButtonsProps> = ({ actionButtons }) => (
   <Flex>
-    {map(actionButtons, (actionButton, i) => {
-      if (!isEmpty(actionButton)) {
-        return (
-          <FlexItem key={actionButton.id || i}>
-            <ActionButton
-              variant={actionButton.variant}
-              callback={actionButton.callback}
-              isDisabled={actionButton.isDisabled}
-              tooltip={actionButton.tooltip}
-            >
-              {actionButton.label}
-            </ActionButton>
-          </FlexItem>
-        );
-      }
-      return null;
-    })}
+    {actionButtons.map((actionButton, i) => (
+      <FlexItem key={actionButton?.id ?? i}>
+        <ActionButton
+          label={actionButton.label}
+          callback={actionButton.callback}
+          variant={actionButton?.variant}
+          id={actionButton?.id}
+          isDisabled={actionButton?.isDisabled}
+          tooltip={actionButton?.tooltip}
+        />
+      </FlexItem>
+    ))}
   </Flex>
 );
 

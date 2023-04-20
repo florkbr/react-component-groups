@@ -7,7 +7,6 @@ import {
   Label,
   DropdownPosition,
 } from '@patternfly/react-core';
-import { isEmpty } from 'lodash';
 import React from 'react';
 import type { K8sResourceCommon } from '../../types/k8s';
 import type { BreadcrumbProp, ActionButtonProp, ActionMenuProps } from './utils';
@@ -40,7 +39,7 @@ export interface DetailsPageHeaderProps {
   actionMenu?: ActionMenuProps;
 };
 
-export const DetailsPageHeader: React.SFC<DetailsPageHeaderProps> = ({
+export const DetailsPageHeader: React.FC<DetailsPageHeaderProps> = ({
   breadcrumbs,
   actionButtons,
   actionMenu,
@@ -59,9 +58,9 @@ export const DetailsPageHeader: React.SFC<DetailsPageHeaderProps> = ({
       </Split>
       <Split hasGutter className="pf-u-mb-sm pf-u-mr-sm">
         {/** Icon for details page heading (before title) */}
-        {pageHeading && !isEmpty(pageHeading?.iconBeforeTitle) && (
+        {pageHeading && pageHeading?.iconBeforeTitle && (
           <SplitItem className="pf-u-mt-auto pf-u-mb-auto">
-            {pageHeading?.iconBeforeTitle}
+            {pageHeading.iconBeforeTitle}
           </SplitItem>
         )}
         {/* Details page heading */}
@@ -73,25 +72,25 @@ export const DetailsPageHeader: React.SFC<DetailsPageHeaderProps> = ({
           </SplitItem>
         )}
         {/** Icon for details page heading (after title) */}
-        {pageHeading && !isEmpty(pageHeading?.iconAfterTitle) && (
-          <SplitItem className="pf-u-mt-auto pf-u-mb-auto">{pageHeading?.iconAfterTitle}</SplitItem>
+        {pageHeading && pageHeading?.iconAfterTitle && (
+          <SplitItem className="pf-u-mt-auto pf-u-mb-auto">{pageHeading.iconAfterTitle}</SplitItem>
         )}
         {/* Optional details page heading label */}
-        {!isEmpty(pageHeading) && !isEmpty(pageHeading?.label) && (
+        {pageHeading && pageHeading?.label && (
           <SplitItem>
             <Label
-              href={pageHeading?.label?.href}
-              icon={pageHeading?.label?.icon}
-              color={pageHeading?.label?.color}
-              key={pageHeading?.label?.key ?? pageHeading?.label?.name}
+              href={pageHeading.label?.href}
+              icon={pageHeading.label?.icon}
+              color={pageHeading.label?.color}
+              key={pageHeading.label?.key ?? pageHeading.label.name}
             >
-              {pageHeading?.label?.name}
+              {pageHeading.label.name}
             </Label>
           </SplitItem>
         )}
         <SplitItem isFilled />
         {/* Optional action buttons */}
-        {!isEmpty(actionButtons) && Array.isArray(actionButtons) && (
+        {Array.isArray(actionButtons) && actionButtons.length > 0 && (
           <SplitItem>
             <ActionButtons actionButtons={actionButtons} />
           </SplitItem>
