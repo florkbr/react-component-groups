@@ -15,6 +15,7 @@ propComponents: ['ErrorStateProps', 'Breadcrumbs', 'Breadcrumb', 'HorizontalNav'
 import { ErrorState } from "@patternfly/react-component-groups";
 import { Breadcrumbs } from "@patternfly/react-component-groups";
 import { HorizontalNav } from "@patternfly/react-component-groups";
+import { BrowserRouter as Router } from 'react-router-dom';
 
 ## Components Usage
 
