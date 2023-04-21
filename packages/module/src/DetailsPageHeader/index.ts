@@ -7,5 +7,5 @@ export {
   ActionMenuProps,
   ActionMenuVariant,
   GroupedActions,
-  BreadcrumbProp,
+  Breadcrumb,
 } from './utils';

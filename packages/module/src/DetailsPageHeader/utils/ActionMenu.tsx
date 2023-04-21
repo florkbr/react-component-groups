@@ -1,4 +1,3 @@
-import type { EitherNotBoth } from '@openshift/dynamic-plugin-sdk';
 import {
   Dropdown,
   DropdownPosition,
@@ -9,7 +8,15 @@ import {
 } from '@patternfly/react-core';
 import { ExternalLinkAltIcon } from '@patternfly/react-icons';
 import React from 'react';
-import './ActionMenu.css';
+// import './ActionMenu.css';
+
+// Duplicated from @openshift/dynamic-plugin-sdk
+type Never<T> = {
+  [K in keyof T]?: never;
+};
+
+// Duplicated from @openshift/dynamic-plugin-sdk
+type EitherNotBoth<TypeA, TypeB> = (TypeA & Never<TypeB>) | (TypeB & Never<TypeA>);
 
 export type ActionCTA =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

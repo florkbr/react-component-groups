@@ -23,14 +23,14 @@ export interface WithRouterProps {
   location?: ReturnType<typeof useLocation>;
 };
 
-interface HorizontalNavProps extends WithRouterProps {
+interface HorizontalNav extends WithRouterProps {
   /** aria-label for all tabs */
   ariaLabel?: string;
   /** Properties for tabs */
   tabs: Tab[];
 };
 
-const HorizontalNavTabs: React.FC<HorizontalNavProps> = ({
+const HorizontalNavTabs: React.FC<HorizontalNav> = ({
   ariaLabel,
   tabs,
   params,
@@ -88,6 +88,6 @@ const withRouter = <T extends WithRouterProps>(Component: React.ComponentType<T>
   return <Component {...(props as T)} params={params} navigate={navigate} location={location} />;
 };
 
-const HorizontalNav = withRouter(HorizontalNavTabs as React.ComponentType<HorizontalNavProps>);
+const HorizontalNav = withRouter(HorizontalNavTabs as React.ComponentType<HorizontalNav>);
 
-export { HorizontalNav, HorizontalNavTabs, Tab, HorizontalNavProps, withRouter };
+export { HorizontalNav, HorizontalNavTabs, Tab, withRouter };

@@ -1,4 +1,4 @@
-export { Breadcrumbs, BreadcrumbProp, BreadcrumbsProps } from './Breadcrumbs';
+export { Breadcrumbs, Breadcrumb } from './Breadcrumbs';
 export { ActionButtons, ActionButtonProp, ActionButtonsProps } from './ActionButtons';
 export {
   Action,
